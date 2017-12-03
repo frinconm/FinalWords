@@ -368,26 +368,36 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
                                                 if (a < 20) {
                                                     a++;
                                                 }
-                                                a = 12;
-                                                c++;
+                                                else {
+                                                    a = 12;
+                                                    c++;
+                                                }
                                             }
-                                            d++;
-                                            c = 12;
+                                            else {
+                                                d++;
+                                                c = 12;
+                                            }
                                         }
-                                        f++;
-                                        d = 12;
+                                        else {
+                                            f++;
+                                            d = 12;
+                                        }
                                     }
-                                    i++;
-                                    f = 12;
+                                    else {
+                                        i++;
+                                        f = 12;
+                                    }
                                 }
-                                l++;
+                                else {
+                                    l++;
+                                    i = 12;
+                                }
+                            }
+                            else {
+                                o++;
                                 i = 12;
                             }
-                            o++;
-                            i = 12;
                         }
-                        t++;
-                        o = 12;
                     }
 
                     array[t] = 't';
@@ -424,26 +434,36 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
                                     if (a < 20) {
                                         a++;
                                     }
-                                    a = 12;
-                                    c++;
+                                    else {
+                                        a = 12;
+                                        c++;
+                                    }
                                 }
-                                d++;
-                                c = 12;
+                                else {
+                                    d++;
+                                    c = 12;
+                                }
                             }
-                            f++;
-                            d = 12;
+                            else {
+                                f++;
+                                d = 12;
+                            }
                         }
-                        i++;
-                        f = 12;
+                        else {
+                            i++;
+                            f = 12;
+                        }
                     }
-                    l++;
+                    else {
+                        l++;
+                        i = 12;
+                    }
+                }
+                else {
+                    o++;
                     i = 12;
                 }
-                o++;
-                i = 12;
             }
-            t++;
-            o = 12;
         }
 
         array[t] = 't';
@@ -454,6 +474,8 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
         array[d] = 'd';
         array[c] = 'c';
         array[a] = 'a';
+
+        //console.log("t: " + t + "o: " + "l: " + l + "i: " + i + "f: " + f + "d: " + d + "c: " + c + "a: " + a);
 
         link = buildLink(array);
 
