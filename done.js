@@ -218,8 +218,9 @@ function displayArray(array) {
 }
 
 
- // http://firstthreeodds.org/pdq?perm=bnhmpgsqftlkrijdoeca
-var initialArray = ['b', 'n', 'h', 'm', 'p', 'g', 's', 'o', 't', 'r', 'q', 'l', 'k', 'j', 'i', 'f', 'e', 'd', 'c', 'a'];
+/*"Min value here=> Url: http://firstthreeodds.org/pdq?perm=bnhmpgsqekrjtolifdca Result:000000000000000001853"  done.js:279:17
+any pattern in or reason for the ten digit numbers that look to random on just first be appear a ?  done.js:208:5*/
+var initialArray = ['b', 'n', 'h', 'm', 'p', 'g', 's', 'q', 'e', 'k', 'r', 'j', 't', 'o', 'l', 'i', 'f', 'd', 'c', 'a'];
 var globalMinValue = "99999999999999999999999";
 
 
@@ -287,9 +288,9 @@ function recursive1(arrayOfLetters, minValue, link, i, j, initial) {
 
             }
             else {
-                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
+                //console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
                 sequentialSwapElements(arrayOfLetters, lastFirst, lastSecond);
-                displayQuestion(this.url);
+                //displayQuestion(this.url);
 
                 if (j < 19) {
                     j++;
@@ -330,6 +331,64 @@ function recursive1(arrayOfLetters, minValue, link, i, j, initial) {
 
 }
 
+function  bruteForce() {
+
+    var arrayOfLetters = initialArray;
+
+    for (var t = 12; t <= 19; t++) {
+        for (var o = 12; o <= 19; o++) {
+            for (var l = 12; l <= 19; l++) {
+                for (var i = 12; i <= 19; i++) {
+                    for (var f = 12; f <= 19; f++) {
+                        for (var d = 12; d <= 19; d++) {
+                            for (var c = 12; c <= 19; c++) {
+                                for (var a = 12; a <= 19; a++ ) {
+                                    if (t !== o && t !== l && t !== i && t !== f && t !== d && t !== c && t !== a &&
+                                    o !== l && o !== i && o !== f && o !== d && o !== c && o !== a &&
+                                    l !== i && l !== f && l !== d && l !== c && l !== a &&
+                                    i !== f && i !== d && i !== c && i !== a &&
+                                    f !== d && d !== c && d !== a &&
+                                    d !== c && d !== a &&
+                                    c !== a) {
+                                        arrayOfLetters[t] = 't';
+                                        arrayOfLetters[o] = 'o';
+                                        arrayOfLetters[l] = 'l';
+                                        arrayOfLetters[i] = 'i';
+                                        arrayOfLetters[f] = 'f';
+                                        arrayOfLetters[d] = 'd';
+                                        arrayOfLetters[c] = 'c';
+                                        arrayOfLetters[a] = 'a';
+
+                                        var link = buildLink(arrayOfLetters);
+
+                                        $.ajax(link, {
+                                            success: function (result) {
+                                                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
+                                                if (result.padStart(21, "0") < minValue.padStart(21, "0")) {
+                                                    minValue = result;
+                                                    minLink = this.url;
+                                                    console.log("Min value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
+                                                    displayQuestion(this.url);
+
+                                                }
+                                            },
+                                            error: function () {
+                                                console.log("error");
+                                            }
+                                        });
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
 function recursive2(arrayOfLetters, minValue, link, i, j, initial) {
 
     $.ajax(link, {
@@ -349,7 +408,6 @@ function recursive2(arrayOfLetters, minValue, link, i, j, initial) {
 
             }
             else {
-                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
                 doubleSequentialSwapElements(arrayOfLetters, lastFirst, lastSecond);
 
                 if (j < 18) {
@@ -423,15 +481,14 @@ function recursive3(arrayOfLetters, minValue, link, i, j, initial) {
                 i = initial;
                 j = initial + 3;
 
-                console.log("I: " + i + "J: " + j);
+                //console.log("I: " + i + "J: " + j);
                 tripleSequentialSwapElements(arrayOfLetters, i, j);
                 link = buildLink(arrayOfLetters);
                 recursive3(arrayOfLetters, minValue, link, i, j, initial);
 
             }
             else {
-                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
-                displayQuestion(this.url);
+                //displayQuestion(this.url);
                 tripleSequentialSwapElements(arrayOfLetters, lastFirst, lastSecond);
 
                 if (j < 17) {
@@ -512,7 +569,6 @@ function recursive4(arrayOfLetters, minValue, link, i, j, initial) {
 
             }
             else {
-                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
                 quadrupleSequentialSwapElements(arrayOfLetters, lastFirst, lastSecond);
 
                 if (j < 16) {
@@ -593,7 +649,7 @@ function recursive5(arrayOfLetters, minValue, link, i, j, initial) {
 
             }
             else {
-                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
+                //console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
                 quintupleSequentialSwapElements(arrayOfLetters, lastFirst, lastSecond);
 
                 if (j < 15) {
@@ -665,7 +721,7 @@ function randomRecursive(arrayOfLetters, minValue, link, minLink) {
                 console.log("Min value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
                 displayQuestion(this.url);
 
-                moreRandomSwapElements(arrayOfLetters, 3);
+                moreRandomSwapElements(arrayOfLetters, 12);
                 //randomSwapElements(arrayOfLetters, 0);
                 link = buildLink(arrayOfLetters);
 
@@ -676,8 +732,8 @@ function randomRecursive(arrayOfLetters, minValue, link, minLink) {
                 //Unswapping...
                 //sequentialSwapElements(arrayOfLetters, lastFirst, lastSecond);
                 //console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
-               // console.log("Last min value=> Url: " + minLink + " Result:" + minValue);
-                moreRandomSwapElements(arrayOfLetters, 3);
+                //console.log("Last min value=> Url: " + minLink + " Result:" + minValue);
+                moreRandomSwapElements(arrayOfLetters, 12);
                 link = buildLink(arrayOfLetters);
                 randomRecursive(arrayOfLetters, minValue, link, minLink);
             }
