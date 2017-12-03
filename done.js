@@ -220,7 +220,7 @@ function displayArray(array) {
 
 /*"Min value here=> Url: http://firstthreeodds.org/pdq?perm=bnhmpgsqekrjtolifdca Result:000000000000000001853"  done.js:279:17
 any pattern in or reason for the ten digit numbers that look to random on just first be appear a ?  done.js:208:5*/
-var initialArray = ['b', 'n', 'h', 'm', 'p', 'g', 's', 'q', 'e', 'k', 'r', 'j', 't', 'o', 'l', 'i', 'f', 'd', 'c', 'a'];
+var initialArray = ['b', 'n', 'h', 'm', 'p', 'g', 's', 'q', 'e', 'k', 'r', 'l', 'a', 'f', 'j', 'i', 'c', 't', 'd', 'o'];
 var globalMinValue = "99999999999999999999999";
 
 
@@ -344,7 +344,7 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
         o !== l && o !== i && o !== f && o !== d && o !== c && o !== a &&
         l !== i && l !== f && l !== d && l !== c && l !== a &&
         i !== f && i !== d && i !== c && i !== a &&
-        f !== d && d !== c && d !== a &&
+        f !== d && f !== c && f !== a &&
         d !== c && d !== a &&
         c !== a) {
 
@@ -399,6 +399,9 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
                             }
                         }
                     }
+                    else {
+                        t++;
+                    }
 
                     array[t] = 't';
                     array[o] = 'o';
@@ -411,7 +414,10 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
 
                     link = buildLink(array);
 
-                    bruteForce(link, array, t, o, l, i, f, d, c, a, minValue);
+                    if (t < 20)
+                        bruteForce(link, array, t, o, l, i, f, d, c, a, minValue);
+                    else
+                        console.log("Done!");
                 },
                 error:
 
@@ -465,6 +471,8 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
                 }
             }
         }
+        else
+            t++;
 
         array[t] = 't';
         array[o] = 'o';
@@ -475,11 +483,14 @@ function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
         array[c] = 'c';
         array[a] = 'a';
 
-        //console.log("t: " + t + "o: " + "l: " + l + "i: " + i + "f: " + f + "d: " + d + "c: " + c + "a: " + a);
+        console.log("t: " + t + "o: " + o + "l: " + l + "i: " + i + "f: " + f + "d: " + d + "c: " + c + "a: " + a);
 
         link = buildLink(array);
 
-        bruteForce(link, array, t, o, l, i, f, d, c, a, minValue);
+        if (t < 20)
+            bruteForce(link, array, t, o, l, i, f, d, c, a, minValue);
+        else
+            console.log("Done!");
     }
 }
 
