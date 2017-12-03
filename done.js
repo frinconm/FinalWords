@@ -18,8 +18,8 @@ function moreRandomSwapElements(array, startAt) {
     var second = 0;
 
     while (first === second) {
-        first = Math.floor((Math.random() * (20 - startAt) )) + startAt;
-        second = Math.floor((Math.random() * (20 - startAt) )) + startAt;
+        first = Math.floor((Math.random() * (20 - startAt))) + startAt;
+        second = Math.floor((Math.random() * (20 - startAt))) + startAt;
     }
 
     var temp = array[first];
@@ -34,7 +34,7 @@ function moreRandomSwapElements(array, startAt) {
 
 function randomSwapElements(array, startAt) {
 
-    var number = Math.floor((Math.random() * (20 - startAt) )) + startAt;
+    var number = Math.floor((Math.random() * (20 - startAt))) + startAt;
     var nextNumber;
     if (number < 19)
         nextNumber = number + 1;
@@ -331,62 +331,134 @@ function recursive1(arrayOfLetters, minValue, link, i, j, initial) {
 
 }
 
-function  bruteForce() {
+function initialBruteForce() {
+    link = buildLink(initialArray);
 
-    var arrayOfLetters = initialArray;
+    bruteForce(link, initialArray, 12, 13, 14, 15, 16, 17, 18, 19, globalMinValue);
 
-    for (var t = 12; t <= 19; t++) {
-        for (var o = 12; o <= 19; o++) {
-            for (var l = 12; l <= 19; l++) {
-                for (var i = 12; i <= 19; i++) {
-                    for (var f = 12; f <= 19; f++) {
-                        for (var d = 12; d <= 19; d++) {
-                            for (var c = 12; c <= 19; c++) {
-                                for (var a = 12; a <= 19; a++ ) {
-                                    if (t !== o && t !== l && t !== i && t !== f && t !== d && t !== c && t !== a &&
-                                    o !== l && o !== i && o !== f && o !== d && o !== c && o !== a &&
-                                    l !== i && l !== f && l !== d && l !== c && l !== a &&
-                                    i !== f && i !== d && i !== c && i !== a &&
-                                    f !== d && d !== c && d !== a &&
-                                    d !== c && d !== a &&
-                                    c !== a) {
-                                        arrayOfLetters[t] = 't';
-                                        arrayOfLetters[o] = 'o';
-                                        arrayOfLetters[l] = 'l';
-                                        arrayOfLetters[i] = 'i';
-                                        arrayOfLetters[f] = 'f';
-                                        arrayOfLetters[d] = 'd';
-                                        arrayOfLetters[c] = 'c';
-                                        arrayOfLetters[a] = 'a';
+}
 
-                                        var link = buildLink(arrayOfLetters);
+function bruteForce(link, array, t, o, l, i, f, d, c, a, minValue) {
 
-                                        $.ajax(link, {
-                                            success: function (result) {
-                                                console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
-                                                if (result.padStart(21, "0") < minValue.padStart(21, "0")) {
-                                                    minValue = result;
-                                                    minLink = this.url;
-                                                    console.log("Min value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
-                                                    displayQuestion(this.url);
+    if (t !== o && t !== l && t !== i && t !== f && t !== d && t !== c && t !== a &&
+        o !== l && o !== i && o !== f && o !== d && o !== c && o !== a &&
+        l !== i && l !== f && l !== d && l !== c && l !== a &&
+        i !== f && i !== d && i !== c && i !== a &&
+        f !== d && d !== c && d !== a &&
+        d !== c && d !== a &&
+        c !== a) {
 
-                                                }
-                                            },
-                                            error: function () {
-                                                console.log("error");
-                                            }
-                                        });
+        $.ajax(link, {
+                success: function (result) {
+                    console.log("Some value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
+                    if (result.padStart(21, "0") < minValue.padStart(21, "0")) {
+                        minValue = result;
+                        console.log("Min value here=> Url: " + this.url + " Result:" + result.padStart(21, "0"));
+                        displayQuestion(this.url);
 
-                                    }
-                                }
-                            }
-                        }
                     }
-                }
-            }
-        }
-    }
 
+                    if (t < 20) {
+                        if (o < 20) {
+                            if (l < 20) {
+                                if (i < 20) {
+                                    if (f < 20) {
+                                        if (d < 20) {
+                                            if (c < 20) {
+                                                if (a < 20) {
+                                                    a++;
+                                                }
+                                                a = 12;
+                                                c++;
+                                            }
+                                            d++;
+                                            c = 12;
+                                        }
+                                        f++;
+                                        d = 12;
+                                    }
+                                    i++;
+                                    f = 12;
+                                }
+                                l++;
+                                i = 12;
+                            }
+                            o++;
+                            i = 12;
+                        }
+                        t++;
+                        o = 12;
+                    }
+
+                    array[t] = 't';
+                    array[o] = 'o';
+                    array[l] = 'l';
+                    array[i] = 'i';
+                    array[f] = 'f';
+                    array[d] = 'd';
+                    array[c] = 'c';
+                    array[a] = 'a';
+
+                    link = buildLink(array);
+
+                    bruteForce(link, array, t, o, l, i, f, d, c, a, minValue);
+                },
+                error:
+
+                    function () {
+                        console.log("error");
+                    }
+            }
+        );
+
+
+    }
+    else {
+        if (t < 20) {
+            if (o < 20) {
+                if (l < 20) {
+                    if (i < 20) {
+                        if (f < 20) {
+                            if (d < 20) {
+                                if (c < 20) {
+                                    if (a < 20) {
+                                        a++;
+                                    }
+                                    a = 12;
+                                    c++;
+                                }
+                                d++;
+                                c = 12;
+                            }
+                            f++;
+                            d = 12;
+                        }
+                        i++;
+                        f = 12;
+                    }
+                    l++;
+                    i = 12;
+                }
+                o++;
+                i = 12;
+            }
+            t++;
+            o = 12;
+        }
+
+        array[t] = 't';
+        array[o] = 'o';
+        array[l] = 'l';
+        array[i] = 'i';
+        array[f] = 'f';
+        array[d] = 'd';
+        array[c] = 'c';
+        array[a] = 'a';
+
+        link = buildLink(array);
+
+        bruteForce(link, array, t, o, l, i, f, d, c, a, minValue);
+    }
 }
 
 function recursive2(arrayOfLetters, minValue, link, i, j, initial) {
@@ -654,7 +726,7 @@ function recursive5(arrayOfLetters, minValue, link, i, j, initial) {
 
                 if (j < 15) {
                     j++;
-                    if (j === i || (j === (i - 1)) || (j === (i - 2)) || (j === (i - 3)) ||( j === (i - 4))) {
+                    if (j === i || (j === (i - 1)) || (j === (i - 2)) || (j === (i - 3)) || (j === (i - 4))) {
                         if (i < 15) {
                             j++;
                         }
@@ -683,7 +755,7 @@ function recursive5(arrayOfLetters, minValue, link, i, j, initial) {
                         return;
                     }
                     j = initial;
-                    if (j === i || (j === (i - 1)) || (j === (i - 2)) || (j === (i - 3)) ||( j === (i - 4)))
+                    if (j === i || (j === (i - 1)) || (j === (i - 2)) || (j === (i - 3)) || (j === (i - 4)))
                         j++;
 
                     while (Math.abs(j - i) < 5) {
